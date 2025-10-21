@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Undangan Digital Interaktif</title>
+    <!-- Memuat Tailwind CSS untuk styling yang cantik dan responsif -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Menggunakan font Inter untuk tampilan yang modern */
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f7f7f7;
+        }
+    </style>
+</head>
+<body class="p-4 md:p-8">
+    
+    <!-- Kontainer Utama: Fokus pada satu kolom vertikal (max-w-lg) -->
+    <div class="max-w-lg mx-auto flex flex-col gap-8">
+
+        <!-- Input dan Instruksi -->
+        <div class="p-6 md:p-8 bg-white shadow-xl rounded-xl border border-gray-100">
+            <h1 class="text-2xl font-extrabold text-indigo-700 mb-4 text-center">Personalisasi Undangan</h1>
+            
+            <div class="mb-6">
+                <label for="recipientInput" class="block text-base font-medium text-gray-700 mb-2">Ketik Nama Penerima Undangan:</label>
+                <input
+                    type="text"
+                    id="recipientInput"
+                    placeholder="Contoh: Bpk. Dani Pradana & Keluarga"
+                    class="w-full px-4 py-3 border-2 border-indigo-300 rounded-lg focus:ring-indigo-500 focus:border-indigo-500 text-gray-800 text-base shadow-sm transition duration-150 ease-in-out"
+                >
+            </div>
+
+            <!-- Pesan Instruksi -->
+            <div class="p-4 bg-indigo-50 border-l-4 border-indigo-500 text-indigo-800 rounded-md">
+                <p class="font-semibold">Instruksi:</p>
+                <p class="text-sm">Nama akan muncul di kartu di bawah. Setelah selesai mengetik, klik **"Share ke WhatsApp"** untuk mengirim undangan yang sudah dipersonalisasi.</p>
+            </div>
+        </div>
+        
+        <!-- Panel Preview Undangan (Card) -->
+        <div class="flex justify-center">
+            <div id="invitationCard" class="w-full bg-white shadow-2xl rounded-2xl overflow-hidden transform transition-all duration-300 hover:scale-[1.02] border-4 border-amber-300">
+                
+                <!-- Header Undangan -->
+                <div class="bg-amber-100 p-6 text-center">
+                    <p class="text-sm text-gray-700 font-medium tracking-widest uppercase">The Wedding of</p>
+                    <h2 class="text-4xl font-serif text-amber-900 mt-2 mb-4 italic">DIO <span class="text-2xl">&</span> DERA</h2>
+                    <p class="text-base text-gray-600 font-semibold">MINGGU, 2 NOVEMBER 2025</p>
+                </div>
+                
+                <!-- Konten Utama Undangan -->
+                <div class="p-8 text-center">
+                    <p class="text-gray-500 mb-6">Dengan memohon rahmat dan ridho Allah SWT, kami mengundang Bapak/Ibu/Saudara/i untuk menghadiri acara resepsi pernikahan kami.</p>
+
+                    <p class="text-sm text-gray-500 uppercase font-light mb-1">Kepada Yth.</p>
+                    
+                    <!-- Area Nama Penerima Otomatis -->
+                    <div class="py-4 px-3 bg-indigo-50 rounded-lg mb-8 shadow-inner">
+                        <p id="recipientNameDisplay" class="text-2xl md:text-3xl font-extrabold text-indigo-800 break-words transition-opacity duration-300">
+                            Tamu Undangan
+                        </p>
+                        <p class="text-xs text-indigo-600 mt-1">di tempat</p>
+                    </div>
+
+                    <!-- Tombol Share ke WhatsApp Dinamis -->
+                    <a id="shareLink" href="#" class="inline-flex items-center bg-green-600 text-white font-bold py-3 px-6 rounded-full shadow-lg hover:bg-green-700 transition duration-300 transform hover:scale-105 active:scale-95">
+                        <svg class="w-5 h-5 inline mr-2 -mt-0.5" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12.039 2.503c-5.234 0-9.497 4.26-9.497 9.492 0 1.701.45 3.315 1.305 4.747l-1.393 4.954 5.122-1.353c1.378.75 2.946 1.157 4.463 1.157 5.232 0 9.497-4.26 9.497-9.492s-4.265-9.492-9.497-9.492zm4.187 13.921c-.198.544-.814.73-1.332.552-1.503-.503-3.076-1.127-4.47-1.928-.276-.157-.492-.25-.7-.25-.098 0-.256.037-.417.185-.16.148-.485.474-.593.578-.107.104-.207.118-.385.075-.24-.055-1.02-.387-1.944-1.2-1.01-1.01-1.688-2.03-1.89-2.29-.202-.26-.184-.486-.092-.68.092-.194.204-.336.27-.41.066-.073.14-.158.203-.236.062-.078.125-.157.187-.235.06-.077.065-.138.01-.274-.052-.137-.417-.998-.57-1.375-.152-.376-.307-.325-.42-.325-.113 0-.244-.017-.375.044-.13.06-.334.3-.51.493-.176.192-.377.45-.377.728 0 .278.188.54.406.825 1.127 1.488 2.627 2.915 4.34 3.755.77.38 1.37.568 1.844.69.475.12 1.01.077 1.385-.257.375-.33.565-.77.712-1.115.145-.345.145-.635.076-.77-.068-.138-.175-.205-.36-.297z"></path></svg>
+                        Share ke WhatsApp
+                    </a>
+                    
+                    <p class="text-xs text-gray-400 mt-6">Merupakan suatu kehormatan dan kebahagiaan bagi kami apabila Bapak/Ibu/Saudara/i berkenan hadir.</p>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Menginisialisasi variabel
+        const inputElement = document.getElementById('recipientInput');
+        const displayElement = document.getElementById('recipientNameDisplay');
+        const invitationCard = document.getElementById('invitationCard');
+        const shareButton = document.getElementById('shareLink');
+
+        // Fungsi untuk membuat dan mengatur link WhatsApp
+        function updateShareLink(name) {
+            // Definisikan link undangan dasar (contoh saja, ganti dengan link Anda yang sebenarnya)
+            const baseUrl = "https://diodera.vercel.app/";
+            
+            // Buat link yang dipersonalisasi dengan nama tamu
+            // Tautan ini akan menyertakan parameter '?kepada=[Nama Tamu]'
+            const personalizedLink = `${baseUrl}?kepada=${encodeURIComponent(name)}`;
+
+            // Buat pesan WhatsApp yang akan dikirim
+            const whatsappMessage = 
+                `Assalamualaikum Warahmatullahi Wabarakatuh.\n\nYth. *${name}*,\n\nDengan memohon rahmat dan ridho Allah SWT, kami mengundang Bapak/Ibu/Saudara/i untuk menghadiri acara resepsi pernikahan kami. Mohon buka link undangan ini:\n\n${personalizedLink}\n\nMerupakan suatu kehormatan bagi kami apabila Anda berkenan hadir.\n\nTerima kasih.`;
+
+            // Encode keseluruhan pesan untuk dimasukkan ke URL WhatsApp
+            const encodedMessage = encodeURIComponent(whatsappMessage);
+            
+            // Tentukan URL WhatsApp (menggunakan wa.me untuk universal link)
+            const whatsappUrl = `https://wa.me/?text=${encodedMessage}`;
+            
+            // Atur atribut href dan status tombol
+            if (name.trim() === '') {
+                // Jika nama kosong, nonaktifkan link
+                shareButton.classList.add('opacity-50', 'cursor-not-allowed', 'pointer-events-none');
+                shareButton.removeAttribute('target');
+                shareButton.href = '#';
+            } else {
+                // Jika nama terisi, aktifkan link
+                shareButton.classList.remove('opacity-50', 'cursor-not-allowed', 'pointer-events-none');
+                shareButton.setAttribute('target', '_blank'); // Buka di tab baru
+                shareButton.href = whatsappUrl;
+            }
+        }
+
+        // Fungsi utama untuk memperbarui nama penerima secara real-time
+        function updateRecipientName() {
+            // Mengambil nilai dari kolom input
+            const recipientName = inputElement.value.trim();
+            
+            // Mengatur teks yang akan ditampilkan di kartu undangan
+            if (recipientName === '') {
+                displayElement.textContent = 'Tamu Undangan';
+                // Tambahkan efek visual (kartu agak pudar)
+                invitationCard.classList.add('opacity-80', 'saturate-50');
+            } else {
+                displayElement.textContent = recipientName;
+                // Kembalikan efek visual ke normal
+                invitationCard.classList.remove('opacity-80', 'saturate-50');
+            }
+
+            // Panggil fungsi untuk memperbarui link WhatsApp
+            updateShareLink(recipientName);
+        }
+
+        // Menambahkan listener agar fungsi dipanggil setiap kali ada ketikan (event 'input')
+        inputElement.addEventListener('input', updateRecipientName);
+
+        // Panggil sekali saat halaman dimuat untuk mengatur tampilan awal
+        updateRecipientName();
+    </script>
+</body>
+</html>
